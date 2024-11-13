@@ -342,7 +342,7 @@ const GenReveal = () => {
                             }}
                           >
                             <HeartPulse size={18} className="beating-heart" />
-                            <span>{t("beatsPerMinute")}</span>
+                            <span>140 {t("beatsPerMinute")}</span>
                           </Box>
                         </Box>
                       </Box>
