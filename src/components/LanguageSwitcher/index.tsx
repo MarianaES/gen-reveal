@@ -47,7 +47,6 @@ function LanguageSwitcher() {
       <Button
         className={language === "en" ? "active" : ""}
         onClick={() => setLanguage("en")}
-        s
       >
         EN
       </Button>
