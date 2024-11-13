@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   BoxProps,
@@ -10,14 +10,29 @@ import {
   GlobalStyles,
   Typography,
   useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { ChevronRightIcon, HeartPulse } from "lucide-react";
 import EnhancedConfetti from "../components/EnhancedConfetti";
 
 const GenReveal = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [revealed, setRevealed] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [viewHeight, setViewHeight] = useState("100vh");
+
+  useEffect(() => {
+    const updateHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      setViewHeight(`${window.innerHeight}px`);
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
   const babyGender = "XY";
   const dueDate = "Mayo 2025";
@@ -83,20 +98,31 @@ const GenReveal = () => {
       />
     </Box>
   );
-
   return (
-    <>
+    <Box
+      sx={{
+        height: viewHeight,
+        overflow: "hidden",
+        position: "fixed",
+        width: "100%",
+        top: 0,
+        left: 0,
+      }}
+    >
       <BackgroundAnimation />
       <Container
+        maxWidth="sm"
         sx={{
-          minHeight: "100vh",
+          height: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
           zIndex: 1,
-          py: 4,
+          py: { xs: 2, sm: 4 },
+          px: { xs: 2, sm: 3 },
+          overflow: "hidden",
         }}
       >
         <GlobalStyles
@@ -123,16 +149,24 @@ const GenReveal = () => {
         {/* Header */}
         <Fade in timeout={1000}>
           <Box
-            sx={{ textAlign: "center", mb: 6, position: "relative", zIndex: 1 }}
+            sx={{
+              textAlign: "center",
+              mb: { xs: 2, sm: 4 },
+              position: "relative",
+              zIndex: 1,
+              width: "100%",
+              transform: isMobile ? "scale(0.9)" : "none",
+            }}
           >
             <Typography
-              variant="h1"
+              variant={isMobile ? "h3" : "h1"}
               sx={{
                 background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 color: "transparent",
                 fontWeight: 600,
+                fontSize: { xs: "1.75rem", sm: "3rem", md: "3.75rem" },
               }}
             >
               Mi Presentación Cromosómica
@@ -146,13 +180,14 @@ const GenReveal = () => {
             sx={{
               width: "100%",
               maxWidth: 500,
-              height: 400,
+              height: isMobile ? "auto" : 400,
+              maxHeight: isMobile ? "50vh" : "none",
+              transform: isMobile ? "scale(0.95)" : "none",
             }}
           >
             <CardContent
               sx={{
-                p: 6,
-                position: "relative",
+                p: { xs: 2, sm: 6 },
                 height: "100%",
                 display: "flex",
                 alignItems: "center",
@@ -427,9 +462,21 @@ const GenReveal = () => {
         {/* Footer */}
         <Fade in timeout={1000}>
           <Box
-            sx={{ mt: 4, textAlign: "center", position: "relative", zIndex: 1 }}
+            sx={{
+              mt: { xs: 2, sm: 4 },
+              textAlign: "center",
+              position: "relative",
+              zIndex: 1,
+              transform: isMobile ? "scale(0.9)" : "none",
+            }}
           >
-            <Typography variant="body1" sx={{ color: "text.secondary" }}>
+            <Typography
+              variant="body1"
+              sx={{
+                color: "text.secondary",
+                fontSize: { xs: "0.75rem", sm: "1rem" },
+              }}
+            >
               4,000,000,000 años de vida en la Tierra
               <br />
               7,000,000 años de historia humana
@@ -438,9 +485,9 @@ const GenReveal = () => {
             </Typography>
             <Box
               sx={{
-                fontSize: "0.8em",
+                fontSize: { xs: "0.7rem", sm: "0.8rem" },
                 opacity: 0.7,
-                mt: "12px",
+                mt: "8px",
               }}
             >
               Un pequeño humano más
@@ -449,7 +496,7 @@ const GenReveal = () => {
           </Box>
         </Fade>
       </Container>
-    </>
+    </Box>
   );
 };
 
