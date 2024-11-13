@@ -235,30 +235,6 @@ const GenReveal = () => {
                       >
                         CLASIFICACIÓN: HOMO SAPIENS SAPIENS
                       </Box>
-                      {/* <Box
-                        sx={{
-                          fontSize: "1.2em",
-                          background: `linear-gradient(45deg, #1976d2, #9c27b0)`,
-                          backgroundClip: "text",
-                          WebkitBackgroundClip: "text",
-                          color: "transparent",
-                          animation: "pulseText 2s infinite ease-in-out",
-                          m: 4,
-                        }}
-                      >
-                        Proyecto ADN 2025
-                        <Box
-                          sx={{
-                            fontSize: "0.4em",
-                            color: "primary.main",
-                            letterSpacing: "0.4em",
-                            animation: "fadeIn 2s ease-out",
-                            p: 2,
-                          }}
-                        >
-                          ATCG • GCTA • TACG
-                        </Box>
-                      </Box> */}
 
                       <Box
                         sx={{
@@ -341,7 +317,7 @@ const GenReveal = () => {
                             }}
                           >
                             <HeartPulse size={18} className="beating-heart" />
-                            <span>Primer Latido Detectado</span>
+                            <span>140 latidos por minuto</span>
                           </Box>
                         </Box>
                       </Box>
