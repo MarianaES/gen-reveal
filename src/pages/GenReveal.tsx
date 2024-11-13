@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { ChevronRightIcon, HeartPulse } from "lucide-react";
 import EnhancedConfetti from "../components/EnhancedConfetti";
+import { usePregnancyProgress } from "../hooks/usePregnancyProgress";
 
 const GenReveal = () => {
   const theme = useTheme();
@@ -21,6 +22,10 @@ const GenReveal = () => {
   const [revealed, setRevealed] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [viewHeight, setViewHeight] = useState("100vh");
+  const babyGender = "XX";
+  const dueDate = "2025-05-20";
+
+  const progress = usePregnancyProgress(dueDate);
 
   useEffect(() => {
     const updateHeight = () => {
@@ -33,9 +38,6 @@ const GenReveal = () => {
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
-
-  const babyGender = "XY";
-  const dueDate = "Mayo 2025";
 
   const handleReveal = () => {
     setRevealed(true);
@@ -314,7 +316,11 @@ const GenReveal = () => {
                             gap: 0.5,
                           }}
                         >
-                          <Box>[■■■□□□□□□□] 12/40 semanas</Box>
+                          <Box>
+                            {progress.isOverdue
+                              ? `[${progress.loadingBar}] 40s + ${progress.overdueWeeks}s${progress.overdueDays}d`
+                              : `[${progress.loadingBar}] ${progress.week}s${progress.days}d / 40s`}
+                          </Box>
                           <Box
                             sx={{
                               fontSize: "0.9em",
