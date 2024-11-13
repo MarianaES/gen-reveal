@@ -24,8 +24,12 @@ const GenReveal = () => {
   const [viewHeight, setViewHeight] = useState("100vh");
   const babyGender = "XX";
   const dueDate = "2025-05-20";
+  const babyImage = "src/assets/ultrasound.png";
+  const babyName = "Nora";
 
   const progress = usePregnancyProgress(dueDate);
+
+  const selectedGradient = `linear-gradient(45deg, #147D73, #2EC4B6)`;
 
   useEffect(() => {
     const updateHeight = () => {
@@ -182,18 +186,24 @@ const GenReveal = () => {
             sx={{
               width: "100%",
               maxWidth: 500,
-              height: isMobile ? "auto" : 400,
-              maxHeight: isMobile ? "50vh" : "none",
-              transform: isMobile ? "scale(0.95)" : "none",
+              minHeight: { xs: "auto", sm: 400 },
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <CardContent
               sx={{
-                p: { xs: 2, sm: 6 },
+                p: { xs: 3, sm: 4 },
                 height: "100%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                "&.MuiCardContent-root": {
+                  padding: { xs: "24px", sm: "32px" },
+                  "&:last-child": {
+                    paddingBottom: { xs: "24px", sm: "32px" },
+                  },
+                },
               }}
             >
               {!revealed ? (
@@ -201,6 +211,7 @@ const GenReveal = () => {
                   sx={{
                     textAlign: "center",
                     width: "100%",
+                    py: { xs: 2, sm: 3 },
                   }}
                 >
                   <Typography
@@ -209,6 +220,7 @@ const GenReveal = () => {
                     sx={{
                       mb: 4,
                       position: "relative",
+                      fontSize: { xs: "1.5rem", sm: "2rem" },
                     }}
                   >
                     <Box
@@ -216,21 +228,25 @@ const GenReveal = () => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        gap: 1,
+                        gap: { xs: 0.5, sm: 1 },
                       }}
                     >
                       <Box
                         sx={{
-                          fontSize: "0.4em",
-                          letterSpacing: "0.2em",
+                          fontSize: { xs: "0.5em", sm: "0.4em" },
+                          letterSpacing: { xs: "0.1em", sm: "0.2em" },
                           color: "text.secondary",
                           animation: "typeWriter 3s steps(30)",
                           overflow: "hidden",
+
                           whiteSpace: "nowrap",
                           "@keyframes typeWriter": {
                             from: { width: "0" },
                             to: { width: "100%" },
                           },
+                          width: "100%",
+                          textAlign: "center",
+                          mb: { xs: 1, sm: 2 },
                         }}
                       >
                         CLASIFICACIÓN: HOMO SAPIENS SAPIENS
@@ -238,24 +254,22 @@ const GenReveal = () => {
 
                       <Box
                         sx={{
-                          fontSize: "1.2em",
+                          fontSize: { xs: "1em", sm: "1.2em" },
                           background:
                             "linear-gradient(45deg, #FF9F1C, #FF6B6B)",
                           backgroundClip: "text",
                           WebkitBackgroundClip: "text",
                           color: "transparent",
-                          animation: "pulseText 2s infinite ease-in-out",
-                          p: 2,
+                          p: { xs: 1, sm: 2 },
                         }}
                       >
                         Espécimen 1.0 - 2025
                         <Box
                           sx={{
-                            fontSize: "0.4em",
+                            fontSize: { xs: "0.5em", sm: "0.4em" },
                             color: "primary.main",
                             letterSpacing: "0.4em",
-                            animation: "fadeIn 2s ease-out",
-                            p: 2,
+                            p: { xs: 1, sm: 2 },
                           }}
                         >
                           ATCG • GCTA • TACG
@@ -266,7 +280,7 @@ const GenReveal = () => {
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
-                          gap: 1,
+                          gap: { xs: 0.5, sm: 1 },
                         }}
                       >
                         <Box
@@ -285,7 +299,6 @@ const GenReveal = () => {
                             fontSize: "0.4em",
                             fontFamily: "monospace",
                             opacity: 0.7,
-                            // animation: "blink 1.5s infinite",
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
@@ -328,7 +341,6 @@ const GenReveal = () => {
                     variant="h2"
                     gutterBottom
                     sx={{
-                      mb: 4,
                       position: "relative",
                     }}
                   >
@@ -382,6 +394,98 @@ const GenReveal = () => {
                     justifyContent: "center",
                   }}
                 >
+                  <Box
+                    sx={{
+                      mt: 2,
+                      mb: 2,
+                      position: "relative",
+                      padding: "0 4px",
+                    }}
+                  >
+                    <Typography
+                      variant={isMobile ? "h4" : "h3"}
+                      sx={{
+                        background: selectedGradient,
+                        backgroundClip: "text",
+                        WebkitBackgroundClip: "text",
+                        color: "transparent",
+                        fontWeight: 500,
+                      }}
+                    >
+                      Hola, soy{" "}
+                      <Box
+                        sx={{
+                          position: "relative",
+                          display: "inline-block",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontWeight: 700,
+                            background: selectedGradient,
+                            backgroundClip: "text",
+                            WebkitBackgroundClip: "text",
+                            color: "transparent",
+                          }}
+                        >
+                          {babyName}
+                        </span>
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            bottom: -6,
+                            left: 0,
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "space-evenly",
+                            "& > *": {
+                              animation: "twinkle 1.5s infinite ease-in-out",
+                            },
+                            "@keyframes twinkle": {
+                              "0%, 100%": { opacity: 0.5 },
+                              "50%": { opacity: 1 },
+                            },
+                          }}
+                        >
+                          {[...Array(10)].map((_, i) => (
+                            <Box
+                              key={i}
+                              sx={{
+                                width: 4,
+                                height: 4,
+                                borderRadius: "50%",
+                                background:
+                                  i % 2 === 0
+                                    ? theme.palette.primary.main
+                                    : theme.palette.secondary.main,
+                                animationDelay: `${i * 0.2}s`,
+                              }}
+                            />
+                          ))}
+                        </Box>
+                      </Box>
+                      .
+                    </Typography>
+                  </Box>
+
+                  <Box
+                    component="img"
+                    src={babyImage}
+                    alt="Baby Scan"
+                    sx={{
+                      maxWidth: { xs: "80%", sm: "60%" },
+                      height: "auto",
+                      borderRadius: 2,
+                      boxShadow: 3,
+                      my: 2,
+                      objectFit: "contain",
+                      filter: "blur(0px)",
+                      transition: "filter 0.3s",
+                      "&.loading": {
+                        filter: "blur(10px)",
+                      },
+                    }}
+                  />
                   <Typography
                     variant="h2"
                     sx={{
