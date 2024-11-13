@@ -15,8 +15,11 @@ import {
 import { ChevronRightIcon, HeartPulse } from "lucide-react";
 import EnhancedConfetti from "../components/EnhancedConfetti";
 import { usePregnancyProgress } from "../hooks/usePregnancyProgress";
+import LanguageSwitcher from "../components/LanguageSwitcher";
+import { useLanguage } from "../context/LanguageContext";
 
 const GenReveal = () => {
+  const { t } = useLanguage();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [revealed, setRevealed] = useState(false);
@@ -115,6 +118,7 @@ const GenReveal = () => {
         left: 0,
       }}
     >
+      <LanguageSwitcher />
       <BackgroundAnimation />
       <Container
         maxWidth="sm"
@@ -175,7 +179,7 @@ const GenReveal = () => {
                 fontSize: { xs: "1.75rem", sm: "3rem", md: "3.75rem" },
               }}
             >
-              Mi Presentación Cromosómica
+              {t("title")}
             </Typography>
           </Box>
         </Fade>
@@ -249,7 +253,7 @@ const GenReveal = () => {
                           mb: { xs: 1, sm: 2 },
                         }}
                       >
-                        CLASIFICACIÓN: HOMO SAPIENS SAPIENS
+                        {t("classification")}
                       </Box>
 
                       <Box
@@ -263,7 +267,7 @@ const GenReveal = () => {
                           p: { xs: 1, sm: 2 },
                         }}
                       >
-                        Espécimen 1.0 - 2025
+                        {t("specimen")}
                         <Box
                           sx={{
                             fontSize: { xs: "0.5em", sm: "0.4em" },
@@ -292,7 +296,7 @@ const GenReveal = () => {
                             color: "text.secondary",
                           }}
                         >
-                          DESARROLLO EN PROGRESO
+                          {t("developmentProgress")}
                         </Box>
                         <Box
                           sx={{
@@ -307,8 +311,16 @@ const GenReveal = () => {
                         >
                           <Box>
                             {progress.isOverdue
-                              ? `[${progress.loadingBar}] 40s + ${progress.overdueWeeks}s${progress.overdueDays}d`
-                              : `[${progress.loadingBar}] ${progress.week}s${progress.days}d / 40s`}
+                              ? `[${progress.loadingBar}] 40${t("weeks")} + ${
+                                  progress.overdueWeeks
+                                }${t("weeks")}${progress.overdueDays}${t(
+                                  "days"
+                                )}`
+                              : `[${progress.loadingBar}] ${progress.week}${t(
+                                  "weeks"
+                                )}${progress.days}${t("days")} / 40${t(
+                                  "weeks"
+                                )}`}
                           </Box>
                           <Box
                             sx={{
@@ -330,7 +342,7 @@ const GenReveal = () => {
                             }}
                           >
                             <HeartPulse size={18} className="beating-heart" />
-                            <span>140 latidos por minuto</span>
+                            <span>{t("beatsPerMinute")}</span>
                           </Box>
                         </Box>
                       </Box>
@@ -375,7 +387,7 @@ const GenReveal = () => {
                         <Box
                           sx={{ display: "flex", alignItems: "center", gap: 1 }}
                         >
-                          Iniciar Análisis Genético
+                          {t("startGeneticAnalysis")}
                           <ChevronRightIcon />
                         </Box>
                       </Button>
@@ -412,7 +424,7 @@ const GenReveal = () => {
                         fontWeight: 500,
                       }}
                     >
-                      Hola, soy{" "}
+                      {t("hello")}{" "}
                       <Box
                         sx={{
                           position: "relative",
@@ -508,7 +520,7 @@ const GenReveal = () => {
                       },
                     }}
                   >
-                    ¡Cromosomas{" "}
+                    {t("chromosomes")}{" "}
                     <Box
                       component="span"
                       sx={{
@@ -536,7 +548,7 @@ const GenReveal = () => {
                     >
                       {babyGender.toUpperCase()}
                     </Box>{" "}
-                    Confirmados!
+                    {t("confirmed")}
                   </Typography>
                   {showConfetti && <EnhancedConfetti />}
                 </Box>
@@ -563,11 +575,11 @@ const GenReveal = () => {
                 fontSize: { xs: "0.75rem", sm: "1rem" },
               }}
             >
-              4,000,000,000 años de vida en la Tierra
+              {t("earthLife")}
               <br />
-              7,000,000 años de historia humana
+              {t("humanHistory")}
               <br />
-              300,000 años de Homo sapiens
+              {t("homoSapiens")}
             </Typography>
             <Box
               sx={{
@@ -576,8 +588,8 @@ const GenReveal = () => {
                 mt: "8px",
               }}
             >
-              Un pequeño humano más
-              <br />✨ Llegada Programada: {dueDate} ✨
+              {t("oneMoreHuman")}
+              <br />✨ {t("scheduledArrival")} {dueDate} ✨
             </Box>
           </Box>
         </Fade>
